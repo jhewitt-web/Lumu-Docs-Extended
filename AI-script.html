@@ -1,44 +1,59 @@
-<div id="explain-widget" style="margin: 0; padding: 0">
-    <table cellpadding="0" cellspacing="0" style="width: 100%; table-layout: fixed; text-align: initial; word-break: break-word; overflow-wrap: break-word; border-collapse: collapse; max-width: 100%;" class="noBorderWithRowOddColor">
-        <tbody>
-            <tr>
-                <td style="border: 2px solid rgb(255, 255, 255); min-height: 50px; min-width: 50px; padding: 4px; box-sizing: border-box; background-color: rgb(74, 75, 76);">
-                    <div class=" align-center" style="text-align: center;"><b><a id="chatgpt-explain-link" href="#" target="_blank"><span class="colour" style="color:#ffffff">Chat GPT</span></a></b></div><a href="#" target="_blank">
-                    </a>
-                </td>
-                <td style="border: 2px solid rgb(255, 255, 255); min-height: 50px; min-width: 50px; padding: 4px; box-sizing: border-box; background-color: rgb(74, 75, 76);">
-                    <div class=" align-center" style="text-align: center;"><b><a id="google-ai-explain" target="_blank"><span class="colour" style="color:#ffffff">Google AI</span></a></b></div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div><br></div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Explain Widget</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: transparent;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      background: #4a4b4c;
+      border: 2px solid #fff;
+      padding: 6px;
+      text-align: center;
+    }
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
 
-  
+<table>
+  <tr>
+    <td>
+      <a id="chatgpt" target="_blank">ChatGPT</a>
+    </td>
+    <td>
+      <a id="google" target="_blank">Google AI</a>
+    </td>
+  </tr>
+</table>
+
 <script>
-  (function() {
-    // Get the current page URL
-    const pageUrl = encodeURIComponent(window.location.href);
+  // Get article URL from iframe query param
+  const params = new URLSearchParams(window.location.search);
+  const articleUrl = document.referrer || params.get("url");;
 
-    // Build the prompt you want
-    const prompt = encodeURIComponent(
-      "explain the content of this page only: " + window.location.href
-    );
+  const prompt = encodeURIComponent(
+    `Explain the content of this page only: ${articleUrl}`
+  );
 
-    // Construct the ChatGPT link
-    const chatGptUrl = `https://chat.openai.com/?q=${prompt}`;
+  document.getElementById("chatgpt").href =
+    `https://chat.openai.com/?q=${prompt}`;
 
-    // Assign to the anchor
-    const link = document.getElementById("chatgpt-explain-link");
-    link.href = chatGptUrl;
-  })();
+  document.getElementById("google").href =
+    `https://www.google.com/search?udm=50&q=${prompt}`;
 </script>
 
-<script>
-  const pageUrl = encodeURIComponent(window.location.href);
-  const prompt = encodeURIComponent(`explain the content on this page only: ${pageUrl}`);
-  const googleLink = `https://www.google.com/search?udm=50&q=${prompt}`;
-
-  document.getElementById('google-ai-explain').href = googleLink;
-</script>
+</body>
+</html>
